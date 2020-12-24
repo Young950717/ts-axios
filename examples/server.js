@@ -16,14 +16,14 @@ app.use(webpackDevMiddleware(compiler, {
   }
 }))
 
-app.use(router)
+
 app.use(webpackHotMiddleware(compiler))
 
 app.use(express.static(__dirname))
 
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
+app.use(router) // 要放到这里 不然bodyParser不生效
 
 router.get('/simple/get', function (req, res) {
   res.json({
@@ -34,8 +34,7 @@ router.get('/base/get', function (req, res) {
   res.json(req.query)
 })
 router.post('/base/post', function (req, res) {
-  console.log('req.body=========', req.body)
-  // req.
+  console.log(req.body)
   res.json(req.body)
 })
 
