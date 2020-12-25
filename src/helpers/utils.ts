@@ -24,8 +24,17 @@ const isPlainObject = function (val: any): val is Object {
   return checkFn.call(val) === '[object Object]'
 }
 
+// 创造一个混入类型
+const extend = function <T, U>(to: T, from: U): T & U {
+  for (const key in from) {
+    (to as T & U)[key] = from[key] as any
+  }
+  return to as T & U
+}
+
 export {
   isDate,
   // isObject,
-  isPlainObject
+  isPlainObject,
+  extend
 }

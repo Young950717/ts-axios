@@ -4,6 +4,7 @@ const webpack = require('webpack')
 
 module.exports = {
   mode: 'development',
+  devtool: 'cheap-module-eval-source-map',
 
   /**
    * 我们会在 examples 目录下建多个子目录
