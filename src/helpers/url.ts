@@ -1,5 +1,9 @@
 import { isDate, isPlainObject } from './utils'
 
+/**
+ * 对特殊字符的转义
+ * @param val 
+ */
 function encode(val: string): string {
   return encodeURIComponent(val)
     .replace(/%40/g, '@')

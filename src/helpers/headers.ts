@@ -32,6 +32,21 @@ const processHeaders = function (headers: any, data: any): any {
   }
   return headers
 }
+
+const parserHeaders = function (headers: string): any {
+  let parsed = Object.create(null)
+  if (!headers) return parsed
+  headers.split('\r\n').forEach(row => {
+    let [key, val] = row.split(':')
+    if (!key) return
+    key = key.trim().toLowerCase()
+    val && (val = val.trim())
+    parsed[key] = val
+  })
+  return parsed
+}
+
 export {
-  processHeaders
+  processHeaders,
+  parserHeaders
 }
