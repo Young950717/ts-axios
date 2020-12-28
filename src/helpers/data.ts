@@ -19,8 +19,8 @@ const trahsformResponse = function (data: any): any {
   if (typeof data === 'string') {
     try {
       data = JSON.parse(data)
-    } catch (e) {
-      console.log(e)
+    } catch {
+      // console.log(e)
     }
   }
   return data
