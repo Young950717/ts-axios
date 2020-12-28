@@ -1,3 +1,6 @@
+/**
+ * @description 统一建立Axios error之后的具体信息
+ */
 import { AxiosRequestConfig, AxiosResponse } from '../types'
 class AxiosError extends Error {
   isAxiosError: boolean
@@ -11,7 +14,6 @@ class AxiosError extends Error {
     code?: string | null,
     request?: any,
     response?: AxiosResponse
-
   ) {
     super(message)
 
@@ -31,25 +33,17 @@ class AxiosError extends Error {
  * @param message 错误信息提示
  * @param config config
  * @param code 错误code
- * @param request 
- * @param response 
+ * @param request
+ * @param response
  */
-const createError = function (
+const createError = function(
   message: string,
   config: AxiosRequestConfig,
   code?: string | null,
   request?: any,
   response?: AxiosResponse
 ) {
-  const error = new AxiosError(
-    message,
-    config,
-    code,
-    request,
-    response,
-  )
+  const error = new AxiosError(message, config, code, request, response)
   return error
 }
-export {
-  createError
-}
+export { createError }

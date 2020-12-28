@@ -1,3 +1,6 @@
+/**
+ * @description 默认config配置文件
+ */
 import { transformRequest, transformResponse } from './helpers/data'
 import { processHeaders } from './helpers/headers'
 import { AxiosRequestConfig } from './types'
@@ -11,13 +14,13 @@ const defaluts: AxiosRequestConfig = {
     }
   },
   transformRequest: [
-    function (data: any, headers: any): any {
+    function(data: any, headers: any): any {
       processHeaders(headers, data)
       return transformRequest(data)
     }
   ],
   transformResponse: [
-    function (data: any): any {
+    function(data: any): any {
       return transformResponse(data)
     }
   ]

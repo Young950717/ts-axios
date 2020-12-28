@@ -1,10 +1,21 @@
-export type Method = 'get' | 'GET'
-  | 'delete' | 'DELETE'
-  | 'head' | 'HEAD'
-  | 'options' | 'OPTIONS'
-  | 'post' | 'POST'
-  | 'patch' | 'PATCH'
-  | 'put' | 'PUT'
+/**
+ * @description 公用的类型接口定义
+ */
+export type Method =
+  | 'get'
+  | 'GET'
+  | 'delete'
+  | 'DELETE'
+  | 'head'
+  | 'HEAD'
+  | 'options'
+  | 'OPTIONS'
+  | 'post'
+  | 'POST'
+  | 'patch'
+  | 'PATCH'
+  | 'put'
+  | 'PUT'
 export interface AxiosRequestConfig {
   url?: string
   method?: Method
@@ -20,7 +31,7 @@ export interface AxiosRequestConfig {
 }
 
 export interface AxiosResponse<T = any> {
-  data: T,
+  data: T
   status: number
   statusText: string
   headers: any
@@ -28,11 +39,11 @@ export interface AxiosResponse<T = any> {
   request: any
 }
 
-export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> { }
+export interface AxiosPromise<T = any> extends Promise<AxiosResponse<T>> {}
 
 export interface AxiosError extends Error {
   isAxiosError: boolean
-  config: AxiosRequestConfig,
+  config: AxiosRequestConfig
   code?: string | null
   request?: any
   response?: AxiosResponse
@@ -41,7 +52,7 @@ export interface AxiosError extends Error {
 export interface Axios {
   defaults: AxiosRequestConfig
   interceptors: {
-    request: AxiosInterceptorManager<AxiosRequestConfig>,
+    request: AxiosInterceptorManager<AxiosRequestConfig>
     response: AxiosInterceptorManager<AxiosResponse>
   }
   request<T = any>(config: AxiosRequestConfig): AxiosPromise<T>
@@ -66,7 +77,6 @@ export interface AxiosStatic extends AxiosInstance {
 export interface AxiosInterceptorManager<T> {
   use(resolve: ResolveFn<T>, rejected?: RejectedFn): number
   eject(id: number): void
-
 }
 export interface ResolveFn<T> {
   (val: T): T | Promise<T>

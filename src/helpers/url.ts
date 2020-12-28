@@ -1,8 +1,11 @@
+/**
+ * @description 对url做拼接或者格式化处理
+ */
 import { isDate, isPlainObject } from './utils'
 
 /**
  * 对特殊字符的转义
- * @param val 
+ * @param val
  */
 function encode(val: string): string {
   return encodeURIComponent(val)
@@ -27,7 +30,7 @@ function encode(val: string): string {
  * @param url 请求地址
  * @param params 请求参数
  */
-const buildURL = function (url: string, params?: any): string {
+const buildURL = function(url: string, params?: any): string {
   if (!params) {
     return url
   }
@@ -44,7 +47,6 @@ const buildURL = function (url: string, params?: any): string {
       key += '[]'
     } else {
       values = [val]
-
     }
     values.forEach(v => {
       if (isDate(v)) {
@@ -63,10 +65,6 @@ const buildURL = function (url: string, params?: any): string {
     }
     url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams
   }
-  console.log('url===============', url)
-
   return url
 }
-export {
-  buildURL
-}
+export { buildURL }

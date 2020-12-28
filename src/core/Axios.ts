@@ -1,4 +1,14 @@
-import { AxiosPromise, AxiosRequestConfig, Method, AxiosResponse, RejectedFn, ResolveFn } from '../types'
+/**
+ * @description Axios类
+ */
+import {
+  AxiosPromise,
+  AxiosRequestConfig,
+  Method,
+  AxiosResponse,
+  RejectedFn,
+  ResolveFn
+} from '../types'
 import dispatchRequest from './dispatchRequest'
 import InterceptorManager from '../core/InterceptorManager'
 import mergeConfig from './mergeConfig'
@@ -7,7 +17,7 @@ interface Interceptors {
   response: InterceptorManager<AxiosResponse>
 }
 interface PromiseChain<T> {
-  resolve: ResolveFn<T> | ((config: AxiosRequestConfig) => AxiosPromise),
+  resolve: ResolveFn<T> | ((config: AxiosRequestConfig) => AxiosPromise)
   rejected?: RejectedFn
 }
 export default class Axios {
@@ -23,7 +33,12 @@ export default class Axios {
   private requestMethodWithoutData(method: Method, url: string, config?: AxiosRequestConfig) {
     return this.request(Object.assign(config || {}, { method, url }))
   }
-  private requestMethodWithData(method: Method, url: string, data: any, config?: AxiosRequestConfig) {
+  private requestMethodWithData(
+    method: Method,
+    url: string,
+    data: any,
+    config?: AxiosRequestConfig
+  ) {
     return this.request(Object.assign(config || {}, { method, url, data }))
   }
   request(url: any, config?: any): AxiosPromise {
@@ -36,10 +51,12 @@ export default class Axios {
       config = url
     }
     config = mergeConfig(this.defaults, config)
-    const chain: PromiseChain<any>[] = [{
-      resolve: dispatchRequest,
-      rejected: undefined
-    }]
+    const chain: PromiseChain<any>[] = [
+      {
+        resolve: dispatchRequest,
+        rejected: undefined
+      }
+    ]
     this.interceptors.request.forEach(interceptor => {
       chain.unshift(interceptor)
     })

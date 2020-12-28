@@ -1,3 +1,6 @@
+/**
+ * @description 发送请求前的处理函数
+ */
 import xhr from './xhr'
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { buildURL } from '../helpers/url'

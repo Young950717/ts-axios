@@ -1,10 +1,11 @@
-
+/**
+ * @description 底层基于XMLHttpRequest发送请求的方法
+ */
 import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
 import { parserHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-
     const { url, data = null, method = 'get', headers, responseType, timeout } = config
 
     const xhr = new XMLHttpRequest()
@@ -37,21 +38,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
     }
 
     xhr.onerror = function handleError() {
-      reject(createError(
-        'netweork error',
-        config,
-        null,
-        xhr
-      ))
+      reject(createError('netweork error', config, null, xhr))
     }
 
     xhr.ontimeout = function handleTimeout() {
-      reject(createError(
-        `Timeout of ${timeout}ms exceeded`,
-        config,
-        'ECONNABORTED',
-        xhr
-      ))
+      reject(createError(`Timeout of ${timeout}ms exceeded`, config, 'ECONNABORTED', xhr))
     }
 
     Object.keys(headers).forEach(name => {
@@ -65,20 +56,20 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     xhr.send(data)
 
-
     function handleResponse(response: AxiosResponse): void {
       if (response.status >= 200 && response.status <= 300) {
         resolve(response)
       } else {
-        reject(createError(
-          `Request failed with status code ${response.status}`,
-          config,
-          null,
-          xhr,
-          response
-        ))
+        reject(
+          createError(
+            `Request failed with status code ${response.status}`,
+            config,
+            null,
+            xhr,
+            response
+          )
+        )
       }
     }
   })
 }
-

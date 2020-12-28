@@ -1,3 +1,6 @@
+/**
+ * @description 合并请求策略方法
+ */
 import { isPlainObject, deepMerge } from '../helpers/utils'
 import { AxiosRequestConfig } from '../types'
 
@@ -37,7 +40,10 @@ const startKeysDeepMerge = ['headers']
 startKeysDeepMerge.forEach(key => {
   starts.set(key, deppMergeStrat)
 })
-export default function mergeConfig(config1: AxiosRequestConfig, config2: AxiosRequestConfig): AxiosRequestConfig {
+export default function mergeConfig(
+  config1: AxiosRequestConfig,
+  config2: AxiosRequestConfig
+): AxiosRequestConfig {
   if (!config2) {
     config2 = {}
   }

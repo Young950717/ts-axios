@@ -1,8 +1,10 @@
 {
-  "name": "young",
-  "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "name": "ts-axios-rebuild",
+  "version": "1.0.0",
+  "description": "ts-axios-rebuild",
+  "keywords": [
+    "rebuild"
+  ],
   "main": "dist/young.umd.js",
   "module": "dist/young.es5.js",
   "typings": "dist/types/young.d.ts",

@@ -1,3 +1,6 @@
+/**
+ * @description 工厂模式 返回混合类型的axios实例
+ */
 import { AxiosRequestConfig, AxiosStatic } from './types'
 import Axios from './core/Axios'
 import { extend } from './helpers/utils'

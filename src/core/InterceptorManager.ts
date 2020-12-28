@@ -1,4 +1,6 @@
-
+/**
+ * @description 拦截器管理类
+ */
 import { ResolveFn, RejectedFn } from '../types'
 
 interface Interceptor<T> {
@@ -6,7 +8,7 @@ interface Interceptor<T> {
   rejected?: RejectedFn
 }
 
-export default class InterceptorManager<T>{
+export default class InterceptorManager<T> {
   private interceptors: Array<Interceptor<T> | null>
   constructor() {
     this.interceptors = []
