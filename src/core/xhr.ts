@@ -56,8 +56,8 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
 
     Object.keys(headers).forEach(name => {
       if (data === null && name.toLowerCase() === 'content-type') {
-        // Reflect.deleteProperty(headers, 'name')
-        delete headers[name]
+        Reflect.deleteProperty(headers, 'name')
+        // delete headers[name]
       } else {
         xhr.setRequestHeader(name, headers[name])
       }

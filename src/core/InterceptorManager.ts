@@ -18,6 +18,7 @@ export default class InterceptorManager<T>{
     })
     return this.interceptors.length - 1
   }
+  // 内部调用的forEach方法，作用是操作拦截器数组里面的拦截器
   forEach(fn: (interceptor: Interceptor<T>) => void): void {
     this.interceptors.forEach(interceptor => {
       if (interceptor !== null) {

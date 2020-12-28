@@ -1,4 +1,5 @@
-import { isPlainObject } from './utils'
+import { Method } from '../types'
+import { deepMerge, isPlainObject } from './utils'
 
 /**
  * 辅助函数，配置Content-Type字符串的格式
@@ -33,6 +34,10 @@ const processHeaders = function (headers: any, data: any): any {
   return headers
 }
 
+/**
+ * 格式化响应headers,变成key-value的格式
+ * @param headers 
+ */
 const parserHeaders = function (headers: string): any {
   let parsed = Object.create(null)
   if (!headers) return parsed
@@ -46,7 +51,24 @@ const parserHeaders = function (headers: string): any {
   return parsed
 }
 
+/**
+ * 合并后的headers是个多级的对象,提取所需要的值
+ * @param headers 合并的headers
+ * @param method config中的method
+ */
+const flattenHeaders = function (headers: any, method: Method): any {
+  if (!headers) return headers
+  headers = deepMerge(headers.common, headers[method], headers)
+  const methodsToDelete = ['get', 'post', 'put', 'head', 'options', 'patch', 'common', 'delete']
+  methodsToDelete.forEach(method => {
+    Reflect.deleteProperty(headers, method)
+  })
+
+  return headers
+}
+
 export {
   processHeaders,
-  parserHeaders
+  parserHeaders,
+  flattenHeaders
 }
