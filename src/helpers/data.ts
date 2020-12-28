@@ -15,7 +15,7 @@ const transformRequest = function (data: any): any {
  * 格式化响应的data数据
  * @param data 
  */
-const trahsformResponse = function (data: any): any {
+const transformResponse = function (data: any): any {
   if (typeof data === 'string') {
     try {
       data = JSON.parse(data)
@@ -27,5 +27,5 @@ const trahsformResponse = function (data: any): any {
 }
 export {
   transformRequest,
-  trahsformResponse
+  transformResponse
 }
