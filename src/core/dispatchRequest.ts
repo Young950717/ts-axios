@@ -8,6 +8,7 @@ import { buildURL } from '../helpers/url'
 import { flattenHeaders } from '../helpers/headers' // processHeaders
 import transform from './transform'
 function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
+  thorwIfCancellationRequest(config)
   processConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
@@ -37,4 +38,11 @@ function transformResponseData(res: AxiosResponse): AxiosResponse {
   res.data = transform(res.data, res.headers, res.config.transformResponse)
   return res
 }
+
+function thorwIfCancellationRequest(config: AxiosRequestConfig): void {
+  if (config.cancelToken) {
+    config.cancelToken.thorwIfRequest()
+  }
+}
+
 export default dispatchRequest

@@ -6,6 +6,8 @@ import Axios from './core/Axios'
 import { extend } from './helpers/utils'
 import defaultsConfig from './defaults'
 import mergeConfig from './core/mergeConfig'
+import CancelToken from './cancel/CancelToken'
+import Cancel, { isCancel } from './cancel/Cancel'
 /**
  * 创建一个混合类型，让axios实例即可以axios(config)这样子调用,也可以axios.request() qxios.get()这样子调用
  */
@@ -19,4 +21,7 @@ const axios = createInstance(defaultsConfig)
 axios.create = function create(config: AxiosRequestConfig) {
   return createInstance(mergeConfig(defaultsConfig, config))
 }
+axios.CancelToken = CancelToken
+axios.Cancel = Cancel
+axios.isCancel = isCancel
 export default axios
