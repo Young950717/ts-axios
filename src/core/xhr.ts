@@ -6,13 +6,24 @@ import { parserHeaders } from '../helpers/headers'
 import { createError } from '../helpers/error'
 export default function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
-    const { url, data = null, method = 'get', headers, responseType, timeout, cancelToken } = config
+    const {
+      url,
+      data = null,
+      method = 'get',
+      headers,
+      responseType,
+      timeout,
+      cancelToken,
+      withCredentials
+    } = config
 
     const xhr = new XMLHttpRequest()
 
     responseType && (xhr.responseType = responseType)
 
     timeout && (xhr.timeout = timeout)
+
+    withCredentials && (xhr.withCredentials = withCredentials)
 
     xhr.open(method.toUpperCase(), url!, true)
 
