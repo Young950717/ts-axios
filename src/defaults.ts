@@ -13,14 +13,16 @@ const defaluts: AxiosRequestConfig = {
       Accept: 'application/json, text/plain, */*'
     }
   },
+  xsrfCookieName: 'XSRF_TOKEN',
+  xsrfHeaderName: 'X-XSRF_TOKEN',
   transformRequest: [
-    function(data: any, headers: any): any {
+    function (data: any, headers: any): any {
       processHeaders(headers, data)
       return transformRequest(data)
     }
   ],
   transformResponse: [
-    function(data: any): any {
+    function (data: any): any {
       return transformResponse(data)
     }
   ]

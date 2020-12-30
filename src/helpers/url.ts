@@ -1,6 +1,12 @@
 /**
  * @description 对url做拼接或者格式化处理
  */
+
+interface URLOrigin {
+  host: string
+  protocol: string
+}
+
 import { isDate, isPlainObject } from './utils'
 
 /**
@@ -30,7 +36,7 @@ function encode(val: string): string {
  * @param url 请求地址
  * @param params 请求参数
  */
-const buildURL = function(url: string, params?: any): string {
+const buildURL = function (url: string, params?: any): string {
   if (!params) {
     return url
   }
@@ -67,4 +73,21 @@ const buildURL = function(url: string, params?: any): string {
   }
   return url
 }
-export { buildURL }
+
+const isURLSameOrigin = function (requestUrl: string): boolean {
+  const parsedOrigin = resolveURL(requestUrl)
+  return (parsedOrigin.protocol === currentOrigin.protocol)
+    && (parsedOrigin.host === currentOrigin.host)
+}
+const urlParsingNode = document.createElement('a')
+const currentOrigin = resolveURL(window.location.href)
+function resolveURL(url: string): URLOrigin {
+  urlParsingNode.setAttribute('href', url)
+  const { host, protocol } = urlParsingNode
+  return {
+    host,
+    protocol
+  }
+}
+
+export { buildURL, isURLSameOrigin }
