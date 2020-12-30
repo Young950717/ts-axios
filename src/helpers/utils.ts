@@ -7,7 +7,7 @@ const checkFn = Object.prototype.toString
  * 判断是否为Date类型的值
  * @param val
  */
-const isDate = function(val: any): val is Date {
+const isDate = function (val: any): val is Date {
   return checkFn.call(val) === '[object Date]'
 }
 
@@ -23,19 +23,19 @@ const isDate = function(val: any): val is Date {
  * 判断是否为一个普通对象
  * @param val
  */
-const isPlainObject = function(val: any): val is Object {
+const isPlainObject = function (val: any): val is Object {
   return checkFn.call(val) === '[object Object]'
 }
 
 // 创造一个混入类型
-const extend = function<T, U>(to: T, from: U): T & U {
+const extend = function <T, U>(to: T, from: U): T & U {
   for (const key in from) {
-    ;(to as T & U)[key] = from[key] as any
+    ; (to as T & U)[key] = from[key] as any
   }
   return to as T & U
 }
 
-const deepMerge = function(...objs: any[]): any {
+const deepMerge = function (...objs: any[]): any {
   const result = Object.create(null)
   objs.forEach(obj => {
     if (obj) {
@@ -56,10 +56,14 @@ const deepMerge = function(...objs: any[]): any {
   return result
 }
 
+const isFormData = function (val: any): val is FormData {
+  return typeof val !== 'undefined' && val instanceof FormData
+}
 export {
   isDate,
   // isObject,
   isPlainObject,
   extend,
-  deepMerge
+  deepMerge,
+  isFormData
 }

@@ -35,6 +35,7 @@ app.use(bodyParser.text())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
+// console.log(path.resolve(__dirname, 'upload-file'))
 app.use(multipart({
   uploadDir: path.resolve(__dirname, 'upload-file')
 }))
