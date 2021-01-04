@@ -48,4 +48,6 @@ function thorwIfCancellationRequest(config: AxiosRequestConfig): void {
   }
 }
 
+
 export default dispatchRequest
+export { transformUrl }
