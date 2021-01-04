@@ -97,4 +97,17 @@ function resolveURL(url: string): URLOrigin {
   }
 }
 
-export { buildURL, isURLSameOrigin }
+const isAbsoluteURL = function (url: string): boolean {
+  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url)
+}
+
+const combineURL = function (baseURL: string, relativeURL?: string): string {
+  return relativeURL ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '') : baseURL
+}
+
+export {
+  buildURL,
+  isURLSameOrigin,
+  isAbsoluteURL,
+  combineURL
+}

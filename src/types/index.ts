@@ -35,6 +35,7 @@ export interface AxiosRequestConfig {
   auth?: AxiosBasicCredentials
   validateStatus?: (status: number) => boolean
   paramsSerializer?: (params: any) => string
+  baseURL?: string
 
   [propName: string]: any
 }
@@ -69,9 +70,9 @@ export interface Axios {
   delete<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
   head<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
   options<T = any>(url: string, config?: AxiosRequestConfig): AxiosPromise<T>
-  post<T = any>(url: string, data: any, config?: AxiosRequestConfig): AxiosPromise<T>
-  put<T = any>(url: string, data: any, config?: AxiosRequestConfig): AxiosPromise<T>
-  patch<T = any>(url: string, data: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  post<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  put<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
+  patch<T = any>(url: string, data?: any, config?: AxiosRequestConfig): AxiosPromise<T>
 }
 
 // 混合接口
