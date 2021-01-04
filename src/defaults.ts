@@ -13,6 +13,9 @@ const defaluts: AxiosRequestConfig = {
       Accept: 'application/json, text/plain, */*'
     }
   },
+  validateStatus(status: number): boolean {
+    return status >= 200 && status < 300
+  },
   xsrfCookieName: 'XSRF_TOKEN',
   xsrfHeaderName: 'X-XSRF_TOKEN',
   transformRequest: [
