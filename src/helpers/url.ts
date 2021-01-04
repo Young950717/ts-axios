@@ -7,7 +7,7 @@ interface URLOrigin {
   protocol: string
 }
 
-import { isDate, isPlainObject } from './utils'
+import { isDate, isPlainObject, isURLSearchParams } from './utils'
 
 /**
  * 对特殊字符的转义
@@ -36,34 +36,41 @@ function encode(val: string): string {
  * @param url 请求地址
  * @param params 请求参数
  */
-const buildURL = function (url: string, params?: any): string {
+const buildURL = function (url: string, params?: any, paramsSerializer?: (params: any) => string): string {
   if (!params) {
     return url
   }
-  const parts: string[] = []
-  Object.keys(params).forEach(key => {
-    const val = params[key]
-    if (key === null || typeof key === 'undefined') {
-      // 空值跳过
-      return
-    }
-    let values
-    if (Array.isArray(val)) {
-      values = val
-      key += '[]'
-    } else {
-      values = [val]
-    }
-    values.forEach(v => {
-      if (isDate(v)) {
-        v = v.toISOString()
-      } else if (isPlainObject(v)) {
-        v = JSON.stringify(v)
+  let serializedParams
+  if (paramsSerializer) {
+    serializedParams = paramsSerializer(params)
+  } else if (isURLSearchParams(params)) {
+    serializedParams = params.toString()
+  } else {
+    const parts: string[] = []
+    Object.keys(params).forEach(key => {
+      const val = params[key]
+      if (key === null || typeof key === 'undefined') {
+        // 空值跳过
+        return
       }
-      parts.push(`${encode(key)}=${encode(v)}`)
+      let values
+      if (Array.isArray(val)) {
+        values = val
+        key += '[]'
+      } else {
+        values = [val]
+      }
+      values.forEach(v => {
+        if (isDate(v)) {
+          v = v.toISOString()
+        } else if (isPlainObject(v)) {
+          v = JSON.stringify(v)
+        }
+        parts.push(`${encode(key)}=${encode(v)}`)
+      })
     })
-  })
-  let serializedParams = parts.join('&')
+    serializedParams = parts.join('&')
+  }
   if (serializedParams) {
     const markidx = url.indexOf('#')
     if (markidx !== -1) {

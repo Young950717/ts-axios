@@ -22,8 +22,8 @@ function processConfig(config: AxiosRequestConfig): void {
   config.headers = flattenHeaders(config.headers, config.method!)
 }
 function transformUrl(config: AxiosRequestConfig): string {
-  const { url, params } = config
-  return buildURL(url!, params) // url断言 不为空
+  const { url, params, paramsSerializer } = config
+  return buildURL(url!, params, paramsSerializer) // url断言 不为空
 }
 // function transformRequestData(config: AxiosRequestConfig): any {
 //   const { data } = config

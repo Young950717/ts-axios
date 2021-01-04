@@ -56,6 +56,10 @@ const deepMerge = function (...objs: any[]): any {
   return result
 }
 
+const isURLSearchParams = function (val: any): val is URLSearchParams {
+  return typeof val !== 'undefined' && val instanceof URLSearchParams
+}
+
 const isFormData = function (val: any): val is FormData {
   return typeof val !== 'undefined' && val instanceof FormData
 }
@@ -65,5 +69,6 @@ export {
   isPlainObject,
   extend,
   deepMerge,
-  isFormData
+  isFormData,
+  isURLSearchParams
 }

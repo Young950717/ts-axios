@@ -1,7 +1,7 @@
 import axios, { AxiosError } from '../../src/index'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-
+import qs from 'qs'
 // // document.cookie = 'a=b'
 
 // // axios.get('/more/get').then(res => {
@@ -90,18 +90,50 @@ import 'nprogress/nprogress.css'
 // }).then(res => {
 //   console.log(res)
 // })
-axios.get('/more/304').then(res => {
+// axios.get('/more/304').then(res => {
+//   console.log(res)
+// }).catch((e: AxiosError) => {
+//   console.log(e.message)
+// })
+
+// axios.get('/more/304', {
+//   validateStatus(status) {
+//     return status >= 200 && status < 400
+//   }
+// }).then(res => {
+//   console.log(res)
+// }).catch((e: AxiosError) => {
+//   console.log(e.message)
+// })
+
+axios.get('/more/get', {
+  params: new URLSearchParams('a=b&c=d')
+}).then(res => {
   console.log(res)
-}).catch((e: AxiosError) => {
-  console.log(e.message)
 })
 
-axios.get('/more/304', {
-  validateStatus(status) {
-    return status >= 200 && status < 400
+axios.get('/more/get', {
+  params: {
+    a: 1,
+    b: 2,
+    c: ['a', 'b', 'c']
   }
 }).then(res => {
   console.log(res)
-}).catch((e: AxiosError) => {
-  console.log(e.message)
+})
+
+const instance = axios.create({
+  paramsSerializer(params) {
+    return qs.stringify(params, { arrayFormat: 'brackets' })
+  }
+})
+
+instance.get('/more/get', {
+  params: {
+    a: 1,
+    b: 2,
+    c: ['a', 'b', 'c']
+  }
+}).then(res => {
+  console.log(res)
 })
