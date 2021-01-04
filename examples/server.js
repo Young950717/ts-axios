@@ -35,7 +35,6 @@ app.use(bodyParser.text())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cookieParser())
 
-// console.log(path.resolve(__dirname, 'upload-file'))
 app.use(multipart({
   uploadDir: path.resolve(__dirname, 'upload-file')
 }))
@@ -197,9 +196,10 @@ function registerMoreRouter () {
   })
 
   router.post('/more/post', function (req, res) {
+    // console.log(req.body)
     const auth = req.headers.authorization
     const [type, credentials] = auth.split(' ')
-    console.log(atob(credentials))
+    // console.log(type, credentials)
     const [username, password] = atob(credentials).split(':')
     if (type === 'Basic' && username === 'Yee' && password === '123456') {
       res.json(req.body)
