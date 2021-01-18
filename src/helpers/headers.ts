@@ -27,7 +27,7 @@ function normalizeHeaderName(headers: any, normalizedName: string): void {
  * @param headers
  * @param data post请求的data值
  */
-const processHeaders = function(headers: any, data: any): any {
+const processHeaders = function (headers: any, data: any): any {
   normalizeHeaderName(headers, 'Content-Type')
   if (isPlainObject(data)) {
     if (headers && !headers['Content-Type']) {
@@ -41,14 +41,16 @@ const processHeaders = function(headers: any, data: any): any {
  * 格式化响应headers,变成key-value的格式
  * @param headers
  */
-const parserHeaders = function(headers: string): any {
+const parserHeaders = function (headers: string): any {
   let parsed = Object.create(null)
   if (!headers) return parsed
   headers.split('\r\n').forEach(row => {
-    let [key, val] = row.split(':')
+    // let [key, val] = row.split(':') // 可能存在val值也有:的情况
+    let [key, ...vals] = row.split(':')
     if (!key) return
     key = key.trim().toLowerCase()
-    val && (val = val.trim())
+    const val = vals.join(':').trim()
+    // val && (val = val.trim())
     parsed[key] = val
   })
   return parsed
@@ -59,7 +61,7 @@ const parserHeaders = function(headers: string): any {
  * @param headers 合并的headers
  * @param method config中的method
  */
-const flattenHeaders = function(headers: any, method: Method): any {
+const flattenHeaders = function (headers: any, method: Method): any {
   if (!headers) return headers
   headers = deepMerge(headers.common, headers[method], headers)
   const methodsToDelete = ['get', 'post', 'put', 'head', 'options', 'patch', 'common', 'delete']
