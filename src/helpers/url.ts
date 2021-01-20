@@ -49,7 +49,7 @@ const buildURL = function (url: string, params?: any, paramsSerializer?: (params
     const parts: string[] = []
     Object.keys(params).forEach(key => {
       const val = params[key]
-      if (key === null || typeof key === 'undefined') {
+      if (val === null || typeof val === 'undefined') {
         // 空值跳过
         return
       }
