@@ -1,28 +1,32 @@
-import { describe, expect, test } from '@jest/globals'
 import { transformRequest, transformResponse } from '../../src/helpers/data'
-describe('helper:data', () => {
+
+describe('helpers:data', () => {
   describe('transformRequest', () => {
-    test('should transform request if data is a PlainObject', () => {
-      const obj = { a: 1 }
-      expect(transformRequest(obj)).toBe('{"a":1}')
+    test('should transform request data to string if data is a PlainObject', () => {
+      const a = { a: 1 }
+      expect(transformRequest(a)).toBe('{"a":1}')
     })
-    test('do nothing if data is not a PlainObject', () => {
-      const obj = new URLSearchParams('a=b')
-      expect(transformRequest(obj)).toBe(obj)
+
+    test('should do nothing if data is not a PlainObject', () => {
+      const a = new URLSearchParams('a=b')
+      expect(transformRequest(a)).toBe(a)
     })
   })
+
   describe('transformResponse', () => {
-    test('should transform response if data is not a PlainObject', () => {
-      const obj = '{"a":1}'
-      expect(transformResponse(obj)).toEqual({ a: 1 })
+    test('should transform response data to Object if data is a JSON string', () => {
+      const a = '{"a": 2}'
+      expect(transformResponse(a)).toEqual({ a: 2 })
     })
+
     test('should do nothing if data is a string but not a JSON string', () => {
-      const str = '{a:1}'
-      expect(transformResponse(str)).toBe(str)
+      const a = '{a: 2}'
+      expect(transformResponse(a)).toBe('{a: 2}')
     })
+
     test('should do nothing if data is not a string', () => {
-      const obj = { a: 2 }
-      expect(transformResponse(obj)).toBe(obj)
+      const a = { a: 2 }
+      expect(transformResponse(a)).toBe(a)
     })
   })
 })

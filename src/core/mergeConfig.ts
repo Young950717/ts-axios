@@ -19,14 +19,14 @@ function fromVal2Strat(val1: any, val2: any): any {
  * @param val1 默认配置
  * @param val2 用户传入配置
  */
-function deppMergeStrat(val1: any, val2: any): any {
+function deepMergeStrat(val1: any, val2: any): any {
   if (isPlainObject(val2)) {
     return deepMerge(val1, val2)
   } else if (typeof val2 !== 'undefined') {
     return val2
   } else if (isPlainObject(val1)) {
     return deepMerge(val1)
-  } else if (typeof val1 !== 'undefined') {
+  } else {
     return val1
   }
 }
@@ -38,7 +38,7 @@ startKeysFromValue.forEach(key => {
 })
 const startKeysDeepMerge = ['headers', 'auth']
 startKeysDeepMerge.forEach(key => {
-  starts.set(key, deppMergeStrat)
+  starts.set(key, deepMergeStrat)
 })
 export default function mergeConfig(
   config1: AxiosRequestConfig,

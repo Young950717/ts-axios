@@ -7,11 +7,17 @@ import { buildURL, isAbsoluteURL, combineURL } from '../helpers/url'
 // import { transformRequest, transformResponse } from '../helpers/data'
 import { flattenHeaders } from '../helpers/headers' // processHeaders
 import transform from './transform'
+import { transformResponse } from '../helpers/data'
 function dispatchRequest(config: AxiosRequestConfig): AxiosPromise {
   thorwIfCancellationRequest(config)
   processConfig(config)
   return xhr(config).then(res => {
     return transformResponseData(res)
+  }).catch(e => {
+    if (e && e.response) {
+      e.response = transformResponse(e.response)
+    }
+    return Promise.reject(e)
   })
 }
 function processConfig(config: AxiosRequestConfig): void {

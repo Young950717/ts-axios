@@ -13,7 +13,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
       url,
       data = null,
       method = 'get',
-      headers,
+      headers = {},
       responseType,
       timeout,
       cancelToken,
@@ -57,7 +57,7 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
           return
         }
         const responseHeaders = xhr.getAllResponseHeaders()
-        const responseData = responseType !== 'text' ? xhr.response : xhr.responseText
+        const responseData = responseType && responseType !== 'text' ? xhr.response : xhr.responseText
         const response: AxiosResponse = {
           data: responseData,
           status: xhr.status,

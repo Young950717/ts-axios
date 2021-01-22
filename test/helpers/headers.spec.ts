@@ -1,4 +1,3 @@
-import { describe, expect, test } from '@jest/globals'
 import { parserHeaders, processHeaders, flattenHeaders } from '../../src/helpers/headers'
 
 describe('helpers:header', () => {
@@ -43,7 +42,7 @@ describe('helpers:header', () => {
       expect(headers['Content-Type']).toBe('application/json;charset=utf-8')
     })
 
-    test('should set not Content-Type if not set and data is not PlainObject', () => {
+    test('should not set Content-Type if not set and data is not PlainObject', () => {
       const headers: any = {}
       processHeaders(headers, new URLSearchParams('a=b'))
       expect(headers['Content-Type']).toBeUndefined()
