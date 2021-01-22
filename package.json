@@ -5,16 +5,16 @@
   "keywords": [
     "rebuild"
   ],
-  "main": "dist/young.umd.js",
-  "module": "dist/young.es5.js",
-  "typings": "dist/types/young.d.ts",
+  "main": "dist/ts-axios.umd.js",
+  "module": "dist/ts-axios.es5.js",
+  "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "author": "Young <634046906@qq.com>",
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "https://github.com/Young950717/ts-axios"
   },
   "license": "MIT",
   "engines": {
@@ -35,7 +35,9 @@
     "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
-    "travis-deploy-once": "travis-deploy-once"
+    "travis-deploy-once": "travis-deploy-once",
+    "prepub": "npm run test:prod && npm run build",
+    "pub": "sh release.sh"
   },
   "lint-staged": {
     "{src,test}/**/*.ts": [

@@ -109,7 +109,11 @@ export default function xhr(config: AxiosRequestConfig): AxiosPromise {
         cancelToken.promise.then(reason => {
           xhr.abort()
           reject(reason)
-        })
+        }).catch(
+          /* istanbul ignore next */
+          () => {
+            //donothing
+          })
       }
     }
     function handleResponse(response: AxiosResponse): void {
